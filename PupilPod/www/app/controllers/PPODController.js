@@ -30,19 +30,29 @@ app.controller('PPODController',function($scope,PPODService,$http,$window,$docum
 	var androidConfig = {
 		"senderID": "74320630987",
 	};
-	
-	function bindEvents() {
-		//alert('Hi In BindEvents');
-        document.addEventListener('deviceready', onDeviceReady, false);	
+	$scope.loginTrue = true;
+    function bindEvents() {
+        //alert('Hi In BindEvents');
+        var isphone = false;
+        if(document.URL.indexOf("http://") === -1
+            && document.URL.indexOf("https://") === -1) {
+            isphone = true;
+        }
+
+        if( isphone ) {
+            alert('Mobile');
+            document.addEventListener("deviceready", onDeviceReady, false);
+        } else {
+            alert('Desktop');
+            onDeviceReady();
+        }
     };
-	
-	
-	function onDeviceReady() {
-		//alert('Alert onDeviceReady');
-		receivedEvent('deviceready');
-		PPODService.dbConnection($scope,sharedProperties);
+       
+    function onDeviceReady() {
+        alert('Alert onDeviceReady');
+        //receivedEvent('deviceready');
+        //PPODService.dbConnection($scope,sharedProperties);
     };
-	
 	$scope.swapeOn = function(){
 		//alert('swape on');
 		//return "blurOn";
